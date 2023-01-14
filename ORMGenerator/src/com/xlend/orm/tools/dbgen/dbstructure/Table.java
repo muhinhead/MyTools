@@ -53,7 +53,7 @@ public class Table {
         for (tok = new StringTokenizer(inLine); tok.hasMoreTokens();) {
             token = tok.nextToken();
         }
-        name = token; //toJavaStyle(token);
+        name = token.replace('.', '_'); //toJavaStyle(token);
         String line;
         int number = 0;
         while ((line = in.readLine()) != null) {
@@ -103,6 +103,10 @@ public class Table {
 
     public String getName() {
         return name;
+    }
+
+    public String getSQLName() {
+        return name.replace('_', '.');
     }
 
     public HashMap getColumns() {

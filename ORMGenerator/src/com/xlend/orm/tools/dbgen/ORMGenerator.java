@@ -166,7 +166,7 @@ public class ORMGenerator {
                 output.print("," + col.getName());
             }
         }
-        output.println(" FROM " + table.getName() + " WHERE " + table.getPrimaryKeyColumnName() + "=\" + id;");
+        output.println(" FROM " + table.getSQLName() + " WHERE " + table.getPrimaryKeyColumnName() + "=\" + id;");
         output.println("        try {");
         output.println("            ps = getConnection().prepareStatement(stmt);");
         output.println("            rs = ps.executeQuery();");
@@ -201,7 +201,7 @@ public class ORMGenerator {
         output.println("         }");
         output.println("         PreparedStatement ps = null;");
         output.println("         String stmt =");
-        output.print("                \"INSERT INTO " + table.getName() + " (");// + table.getPrimaryKeyColumnName());
+        output.print("                \"INSERT INTO " + table.getSQLName() + " (");// + table.getPrimaryKeyColumnName());
 
         output.print("\"+(get" + capitalize(pkColumn.getJavaName()) + "().intValue()!=0?\"" + pkColumn.getName() + ",\":\"\")+\"");
         for (n = 0, it = table.getSortedColumns().iterator(); it.hasNext();) {
@@ -243,7 +243,7 @@ public class ORMGenerator {
         output.println("         }");
         output.println("         ResultSet rs = null;");
         output.println("         if (get" + capitalize(pkColumn.getJavaName()) + "().intValue()==0) {");
-        output.println("             stmt = \"SELECT max(" + table.getPrimaryKeyColumnName() + ") FROM " + table.getName() + "\";");
+        output.println("             stmt = \"SELECT max(" + table.getPrimaryKeyColumnName() + ") FROM " + table.getSQLName() + "\";");
         output.println("             try {");
         output.println("                 ps = getConnection().prepareStatement(stmt);");
         output.println("                 rs = ps.executeQuery();");
@@ -274,7 +274,7 @@ public class ORMGenerator {
         output.println("            }");
         output.println("            PreparedStatement ps = null;");
         output.println("            String stmt =");
-        output.println("                    \"UPDATE " + table.getName() + " \" +");
+        output.println("                    \"UPDATE " + table.getSQLName() + " \" +");
         output.print("                    \"SET ");
         n = 0;
         for (it = table.getSortedColumns().iterator(); it.hasNext();) {
@@ -359,7 +359,7 @@ public class ORMGenerator {
         }
         output.println("        PreparedStatement ps = null;");
         output.println("        String stmt =");
-        output.println("                \"DELETE FROM " + table.getName() + " \" +");
+        output.println("                \"DELETE FROM " + table.getSQLName() + " \" +");
         output.println("                \"WHERE " + table.getPrimaryKeyColumnName() + " = \" + get" + capitalize(pkColumn.getJavaName()) + "();");
         output.println("        try {");
         output.println("            ps = getConnection().prepareStatement(stmt);");
@@ -389,7 +389,7 @@ public class ORMGenerator {
                 output.print("," + col.getName());
             }
         }
-        output.println(" FROM " + table.getName() + " \" +");
+        output.println(" FROM " + table.getSQLName() + " \" +");
         output.println("                ((whereCondition != null && whereCondition.length() > 0) ?");
         output.println("                \" WHERE \" + whereCondition : \"\") +");
         output.println("                ((orderCondition != null && orderCondition.length() > 0) ?");
@@ -432,7 +432,7 @@ public class ORMGenerator {
         output.println("        boolean ok = false;");
         output.println("        PreparedStatement ps = null;");
         output.println("        ResultSet rs = null;");
-        output.println("        String stmt = \"SELECT " + table.getPrimaryKeyColumnName() + " FROM " + table.getName() + " \" +"); //+" WHERE \" + whereCondition;");
+        output.println("        String stmt = \"SELECT " + table.getPrimaryKeyColumnName() + " FROM " + table.getSQLName() + " \" +"); //+" WHERE \" + whereCondition;");
         output.println("                ((whereCondition != null && whereCondition.length() > 0) ?");
         output.println("                \"WHERE \" + whereCondition : \"\");");
 

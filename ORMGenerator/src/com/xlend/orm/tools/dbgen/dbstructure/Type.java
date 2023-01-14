@@ -18,12 +18,14 @@ public class Type {
     private static void buildMap() {
         sql2java = new HashMap();
         sql2java.put("int", "Integer");
+        sql2java.put("INT", "Integer");
         sql2java.put("bigint", "Integer");
         sql2java.put("bit", "Integer");
         sql2java.put("smallint", "Integer");
         sql2java.put("tinyint", "Integer");
         sql2java.put("numeric", "Integer");
         sql2java.put("number", "Integer");
+        sql2java.put("VARCHAR", "String");
         sql2java.put("varchar", "String");
         sql2java.put("varchar2", "String");
         sql2java.put("varchar_ignorecase", "String");

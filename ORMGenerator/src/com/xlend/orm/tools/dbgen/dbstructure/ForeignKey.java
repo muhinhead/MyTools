@@ -23,20 +23,22 @@ public class ForeignKey {
     private boolean deleteSetNull = false;
 
     public ForeignKey(String inLine, BufferedReader in) throws NotForeignKeyDescribingLineException, IOException {
-        if (inLine.trim().indexOf("constraint") != 0 || inLine.indexOf("foreign key") == -1) {
-            throw new NotForeignKeyDescribingLineException(inLine);
+        if(inLine.trim().indexOf("foreign key")!=0) {
+            if (inLine.trim().indexOf("constraint") != 0 || inLine.indexOf("foreign key") == -1) {
+                throw new NotForeignKeyDescribingLineException(inLine);
+            }
         }
         deleteCascade = (inLine.toUpperCase().indexOf("DELETE CASCADE") > 0);
         deleteSetNull = (inLine.toUpperCase().indexOf("DELETE SET NULL") > 0);
         String token = null;
         StringTokenizer tok;
         int n = 0;
-        for (tok = new StringTokenizer(inLine," ,.\t\n"); tok.hasMoreTokens(); n++) {
+        for (tok = new StringTokenizer(inLine," ,\t\n"); tok.hasMoreTokens(); n++) {
             token = tok.nextToken();
             if (n==1) {
                 name = token;
             } else if (token.equalsIgnoreCase("references")) {
-                String refTable = tok.nextToken();
+                String refTable = tok.nextToken().replace('.','_');
                 tableTo = (Table) Table.allTables.get(refTable);
             }
         }
