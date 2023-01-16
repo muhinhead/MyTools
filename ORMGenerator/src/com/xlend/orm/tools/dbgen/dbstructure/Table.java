@@ -106,7 +106,8 @@ public class Table {
     }
 
     public String getSQLName() {
-        return name.replace('_', '.');
+        //return name.replace('_', '.');
+        return getName();
     }
 
     public HashMap getColumns() {
